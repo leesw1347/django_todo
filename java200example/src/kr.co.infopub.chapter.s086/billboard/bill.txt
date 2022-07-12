@@ -1,3 +1,0 @@
-[rank=1, song=Despacito, lastweek=1,imagesrc=1111.jpg, artist=luis fonsi
-[rank=2, song=Thats What I Like, lastweek=2,imagesrc=2222.jpg, artist=bruno mars
-[rank=3, song=Im The One, lastweek=3,imagesrc=3333.jpg, artist=dj khaled
