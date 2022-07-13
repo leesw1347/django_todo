@@ -54,13 +54,37 @@ def todo_post(request: django.core.handlers.wsgi.WSGIRequest):
             "form": form
         })
 
+
 """
 Todo 수정뷰 만들기
 기존 Todo 데이터를 전달해서 Form에 셋팅해줘야 한다
 """
-def todo_edit(request: django.core.handlers.wsgi.WSGIRequest, pk: int):
+
+
+def todo_edit(request: django.core.handlers.wsgi.WSGIRequest , pk: int):
     """
     :param request: django 연결 객체
-    :param pk:
+    :param pk: 수정하려는 todo의 edit pk 값
     :return:
     """
+    todo = Todo.objects.get(id=pk)
+    print(todo)
+    print(type(todo))
+
+    method: str = request.method
+    form = TodoForm(todo)
+
+    if todo is not None and request.method == "POST":
+        form = TodoForm(data=request.POST , instance=todo)
+        if form.is_valid():
+            todo = form.save(commit=False)  # 수정하려는 todo 폼을 가져온다
+            todo.save()
+
+            # 수정 완료 후 todo_list 페이지로 이동한다
+            return redirect(to="todo_list")
+
+    return render(request=request ,
+                  template_name="todo/todo_post.html" ,
+                  context={
+                      "form": form
+                  })
